@@ -14,8 +14,8 @@ module.exports = function(url, prev, done) {
       optional = this.options.importerOptions.optional || false,
       debug = this.options.importerOptions.debug || false,
       fileName = path.parse(url).name,
-      filePath = path.parse(url).dir,
-      fileGlob = '/?(_)' + fileName + '.s@(a|c)ss',
+      filePath = path.parse(url).dir + '/',
+      fileGlob = '?(_)' + fileName + '.s@(a|c)ss',
       searchPath = path.join(client, filePath) + fileGlob;
 
   glob(searchPath, function(err1, files) {
