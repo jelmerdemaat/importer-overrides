@@ -11,11 +11,12 @@ module.exports = function(url, prev, done) {
   }
 
   var base = this.options.importerOptions.base || './',
+      optional = this.options.importerOptions.optional || false,
+      debug = this.options.importerOptions.debug,
       fileName = path.parse(url).name,
       filePath = path.parse(url).dir,
       fileGlob = '/?(_)' + fileName + '.s@(a|c)ss',
       searchPath = path.join(client, filePath) + fileGlob;
-      debug = this.options.importerOptions.debug;
 
   glob(searchPath, function(err1, files) {
     if(!err1 && files && files.length) {
@@ -35,10 +36,15 @@ module.exports = function(url, prev, done) {
           }
           done({ file: files[0] });
         } else {
-          if(err1) {
-            done(new Error(err1));
+          if(optional && searchPath.indexOf(optional) > -1) {
+            gutil.log(gutil.colors.yellow('Importer:'), 'Import', gutil.colors.red(fileName), 'not found and is optional match, skipping...');
+            done({});
           } else {
-            done(new Error(err2));
+            if(err1) {
+              done(new Error(err1));
+            } else {
+              done(new Error(err2));
+            }
           }
         }
       });
