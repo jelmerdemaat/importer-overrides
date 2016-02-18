@@ -1,0 +1,11 @@
+{
+  "name": "importer-overrides",
+  "description": "Custom Sass importer for use with Gulp",
+  "devDependencies": {
+    "glob": "^7.0.0",
+    "gulp-util": "^3.0.7"
+  },
+  "repository": "git@github.com:jelmerdemaat/importer-overrides.git",
+  "license": "MIT",
+  "version": "0.1.0"
+}
