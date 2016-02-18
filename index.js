@@ -12,7 +12,7 @@ module.exports = function(url, prev, done) {
 
   var base = this.options.importerOptions.base || './',
       optional = this.options.importerOptions.optional || false,
-      debug = this.options.importerOptions.debug,
+      debug = this.options.importerOptions.debug || false,
       fileName = path.parse(url).name,
       filePath = path.parse(url).dir,
       fileGlob = '/?(_)' + fileName + '.s@(a|c)ss',
@@ -37,7 +37,9 @@ module.exports = function(url, prev, done) {
           done({ file: files[0] });
         } else {
           if(optional && searchPath.indexOf(optional) > -1) {
-            gutil.log(gutil.colors.yellow('Importer:'), 'Import', gutil.colors.red(fileName), 'not found and is optional match, skipping...');
+            if(debug) {
+              gutil.log(gutil.colors.yellow('Importer:'), 'Import', gutil.colors.red(fileName), 'not found and is optional match, skipping...');
+            }
             done({});
           } else {
             if(err1) {
