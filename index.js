@@ -38,7 +38,7 @@ module.exports = function(url, prev, done) {
         } else {
           if(optional && searchPath.indexOf(optional) > -1) {
             if(debug) {
-              gutil.log(gutil.colors.yellow('Importer:'), 'Import', gutil.colors.red(fileName), 'not found and is optional match, skipping...');
+              gutil.log(gutil.colors.yellow('Importer:'), 'Import', gutil.colors.red(url), 'not found and is optional match, skipping...');
             }
             done({});
           } else {
